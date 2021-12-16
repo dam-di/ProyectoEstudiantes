@@ -1,0 +1,163 @@
+﻿<UserControl x:Class="ProyectoEstudiantes.Views.StudentTableView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:local="clr-namespace:ProyectoEstudiantes.Views"
+             x:Name="vista"
+             mc:Ignorable="d">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadStudentsCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="TABLA ESTUDIANTE" Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="2" FontSize="30" FontWeight="Bold" TextAlignment="Center"/>
+
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <ListView x:Name="studentListView" ItemsSource="{Binding ListaEstudiantes}" MaxHeight="400" 
+                      SelectionChanged="studentListView_SelectionChanged">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding LoadStudentCommand}" 
+                                               CommandParameter="{Binding ElementName=studentListView, Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                    
+                    
+                </i:Interaction.Triggers>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="DNI" DisplayMemberBinding="{Binding Path=_id}"/>
+                        <GridViewColumn Header="NOMBRE" DisplayMemberBinding="{Binding Path=Nombre}"/>
+                        <GridViewColumn Header="FECHA NACIMIENTO" DisplayMemberBinding="{Binding Path=Fecha}"/>
+                        <GridViewColumn Header="CURSO" DisplayMemberBinding="{Binding Path=Curso}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+
+        <StackPanel x:Name="stackNotas" Grid.Row="1" Grid.Column="1" Margin="10" Visibility="Collapsed">
+            <Button x:Name="btnMostrarEstudiante" Content="Mostrar Estudiante" Width="170" Margin="10" Height="25" Click="btnMostrarEstudiante_Click"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Programación de servicios y procesos: " Margin="10" TextWrapping="Wrap" TextAlignment="Right"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding ListaNotas}" 
+                          Text="{Binding CurrentStudent.Notas.PSP}" VerticalAlignment="Bottom" 
+                          IsEnabled="{Binding ElementName=vista, Path=EditarNotasActivado}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Sistemas de gestsion empresarial: " Margin="10" TextWrapping="Wrap" TextAlignment="Right"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding ListaNotas}" 
+                          Text="{Binding CurrentStudent.Notas.SGE}" VerticalAlignment="Bottom"
+                          IsEnabled="{Binding ElementName=vista, Path=EditarNotasActivado}"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Desarrollo de interfaces: " Margin="10" TextWrapping="Wrap" TextAlignment="Right"/>
+                <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding ListaNotas}" 
+                          Text="{Binding CurrentStudent.Notas.DI}" VerticalAlignment="Bottom" 
+                          IsEnabled="{Binding ElementName=vista, Path=EditarNotasActivado}"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Programación multimedia y dispositivos móviles: " Margin="10" TextWrapping="Wrap" TextAlignment="Right"/>
+                <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding ListaNotas}" 
+                          Text="{Binding CurrentStudent.Notas.PMDM}" VerticalAlignment="Bottom" 
+                          IsEnabled="{Binding ElementName=vista, Path=EditarNotasActivado}"/>
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Acceso a datos: " Margin="10" TextWrapping="Wrap" TextAlignment="Right"/>
+                <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding ListaNotas}" 
+                          Text="{Binding CurrentStudent.Notas.AD}" VerticalAlignment="Bottom" 
+                          IsEnabled="{Binding ElementName=vista, Path=EditarNotasActivado}"/>
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="Empresa e iniciativa emprendedora: " Margin="10" TextWrapping="Wrap" TextAlignment="Right"/>
+                <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding ListaNotas}" 
+                          Text="{Binding CurrentStudent.Notas.EIE}" VerticalAlignment="Bottom" 
+                          IsEnabled="{Binding ElementName=vista, Path=EditarNotasActivado}"/>
+            </Grid>
+
+            <StackPanel Margin="20" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btnEditarNotasEstudiante" Content="EDITAR" Width="110" HorizontalAlignment="Center" 
+                        Margin="10" Cursor="Hand" Click="btnEditarNotasEstudiante_Click"/>
+                <Button x:Name="btnGuardarNotasEstudiante" Content="GUARDAR" Width="110" HorizontalAlignment="Center" 
+                        Margin="10" Command="{Binding SaveScoresCommand}" CommandParameter="{Binding ElementName=vista}" Cursor="Hand"/>
+                <Button x:Name="btnNotasCancelar" Content="CANCELAR" Width="110" HorizontalAlignment="Center" Margin="10" Cursor="Hand" 
+                        Command="{Binding CancelarEditarEstudianteCommand}"
+                        Click="btnNotasCancelar_Click"/>
+            </StackPanel>
+
+        </StackPanel>
+       
+        
+        
+        <StackPanel x:Name="stackEstudiante" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="10" Visibility="Visible">
+            <Button x:Name="btnMostrarNotas" Content="Mostrar Notas" Width="150" Margin="10" Height="25" Click="btnMostrarNotas_Click"/>
+            <Grid VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="17*"/>
+                    <ColumnDefinition Width="78*"/>
+                    <ColumnDefinition Width="95*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="DNI:" TextAlignment="Right" Margin="5,5,5,5" Grid.ColumnSpan="2"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="NOMBRE:" TextAlignment="Right" Margin="5,5,5,5" Grid.ColumnSpan="2"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="FECHA NACIMIENTO:" TextAlignment="Right" Margin="5,0,5,0" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="CURSO:" TextAlignment="Right" Margin="5,5,5,5" Grid.ColumnSpan="2"/>
+                <TextBox Grid.Row="0" Grid.Column="2" TextAlignment="Left" Cursor="IBeam" 
+                         Text="{Binding CurrentStudent._id, UpdateSourceTrigger=PropertyChanged}" 
+                         Margin="0,0,0,26" Grid.RowSpan="2"
+                         IsEnabled="False"/>
+                <TextBox Grid.Row="1" Grid.Column="2" TextAlignment="Left" Cursor="IBeam" 
+                         Text="{Binding CurrentStudent.Nombre, UpdateSourceTrigger=PropertyChanged}" 
+                         Margin="0,0,0,50" Grid.RowSpan="2" IsEnabled="{Binding ElementName=vista, Path=EditarActivado}"/>
+                <DatePicker x:Name="datePickerFecha" Grid.Row="2" Grid.Column="2" Margin="10,0,10,0" FontSize="16"
+                            SelectedDate="{Binding CurrentStudent.Fecha, StringFormat=dd/MM/yyyy, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding ElementName=vista, Path=EditarActivado}"/>
+                <ComboBox Grid.Row="2" Grid.Column="2" Text="{Binding CurrentStudent.Curso}" Margin="0,50,0,0" Grid.RowSpan="2"
+                          IsEnabled="{Binding ElementName=vista, Path=EditarActivado}">
+                    <ComboBoxItem Content="Primero"/>
+                    <ComboBoxItem Content="Segundo"/>
+                    <ComboBoxItem Content="Tercero"/>
+                </ComboBox>
+
+
+            </Grid>
+
+            <TextBlock x:Name="txWarning" Text="WARNING" Foreground="Red" TextAlignment="Center" FontWeight="Bold" FontSize="14"/>
+
+            <StackPanel Margin="20" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btnEditarEstudiante" Content="EDITAR" Width="110" HorizontalAlignment="Center" Margin="10" Click="btnEditarEstudiante_Click" Cursor="Hand"/>
+                <Button x:Name="btnGuardarEstudiante" Content="GUARDAR" Width="110" 
+                        HorizontalAlignment="Center" Margin="10" Cursor="Hand"
+                        Command="{Binding SaveStudentCommand}" CommandParameter="{Binding ElementName=vista}"/>
+                <Button x:Name="btnCancelar" Content="CANCELAR" Width="110" 
+                        HorizontalAlignment="Center" Margin="10" Cursor="Hand" 
+                        Click="btnCancelar_Click"
+                        Command="{Binding CancelarEditarEstudianteCommand}"/>
+            </StackPanel>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

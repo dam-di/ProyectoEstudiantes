@@ -1,0 +1,17 @@
+﻿<Window x:Class="ProyectoEstudiantes.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProyectoEstudiantes"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="750" Width="1150">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Margin="5" Width="150" Content="HOME" Command="{Binding UpdateViewCommand}" CommandParameter="home"/>
+            <Button Margin="5" Width="150" Content="ESTUDIANTE" Command="{Binding UpdateViewCommand}" CommandParameter="student"/>
+            <Button Margin="5" Width="150" Content="TABLA" Command="{Binding UpdateViewCommand}" CommandParameter="tabla"/>
+        </StackPanel>
+        <ContentControl Content="{Binding SelectedViewModel}"/>
+    </StackPanel>
+</Window>
