@@ -1,8 +1,10 @@
-﻿using ProyectoEstudiantes.Models;
+﻿using Newtonsoft.Json;
+using ProyectoEstudiantes.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -68,7 +70,7 @@ namespace ProyectoEstudiantes.Services
             return okguardar;
         }
 
-        public static bool NuevoEstudiante(EstudianteModel estudiante)
+        public static bool NuevoEstudiante2(EstudianteModel estudiante)
         {
             bool okinsertar = false;
 
@@ -84,6 +86,34 @@ namespace ProyectoEstudiantes.Services
         public static ObservableCollection<EstudianteModel> ObtenerListaEstudiantes()
         {
             return listaEstudiantes;
+        }
+
+
+
+        public static async Task<bool> NuevoEstudiante(EstudianteModel estudiante)
+        {
+            bool okinsertar = false;
+
+            var handler = new WinHttpHandler();
+            var client = new HttpClient(handler);
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5000/students");
+
+            var data = JsonConvert.SerializeObject(estudiante);
+
+            request.Headers.Add("Accept", "application/json");
+            request.Content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string responseJSON = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(responseJSON);
+                okinsertar = true;
+            }
+            
+            return okinsertar;
         }
 
     }

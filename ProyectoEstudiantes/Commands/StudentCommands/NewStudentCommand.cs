@@ -19,9 +19,9 @@ namespace ProyectoEstudiantes.Commands.StudentCommands
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
-            bool okinsertar = StudentDBHandler.NuevoEstudiante(studentViewModel.CurrentStudent);
+            bool okinsertar = await StudentDBHandler.NuevoEstudiante(studentViewModel.CurrentStudent);
             if (okinsertar)
             {
                 MessageBox.Show("Se ha creado el estudiante");
