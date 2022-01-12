@@ -100,6 +100,9 @@
     <Compile Include="Commands\UpdateViewCommand.cs" />
     <Compile Include="Models\EstudianteModel.cs" />
     <Compile Include="Models\NotasModel.cs" />
+    <Compile Include="Models\RequestModel.cs" />
+    <Compile Include="Models\ResponseModel.cs" />
+    <Compile Include="Services\APIHandler.cs" />
     <Compile Include="Services\StudentDBHandler.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

@@ -1,4 +1,5 @@
-﻿using ProyectoEstudiantes.Services;
+﻿using ProyectoEstudiantes.Models;
+using ProyectoEstudiantes.Services;
 using ProyectoEstudiantes.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,14 @@ namespace ProyectoEstudiantes.Commands.StudentCommands
 
         public async void Execute(object parameter)
         {
-            bool okinsertar = await StudentDBHandler.NuevoEstudiante(studentViewModel.CurrentStudent);
-            if (okinsertar)
+            //bool okinsertar = await StudentDBHandler.NuevoEstudiante(studentViewModel.CurrentStudent);
+            RequestModel requestModel = new RequestModel();
+            requestModel.route = "/students";
+            requestModel.method = "POST";
+            requestModel.data = studentViewModel.CurrentStudent;
+            ResponseModel responseModel =  await APIHandler.ConsultAPI(requestModel);
+
+            if (responseModel.resultOk)
             {
                 MessageBox.Show("Se ha creado el estudiante");
             }
