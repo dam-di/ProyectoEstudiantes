@@ -65,7 +65,7 @@ namespace ProyectoEstudiantes.Views
             btnCancelar.Visibility = Visibility.Collapsed;
             btnEditarEstudiante.Visibility = Visibility.Visible;
             btnGuardarEstudiante.Visibility = Visibility.Collapsed;
-
+            btnBorrar.Visibility = Visibility.Visible;
             studentListView.IsEnabled = true;
 
             EditarActivado = false;
@@ -81,7 +81,7 @@ namespace ProyectoEstudiantes.Views
             btnCancelar.Visibility = Visibility.Visible;
             btnEditarEstudiante.Visibility = Visibility.Collapsed;
             btnGuardarEstudiante.Visibility = Visibility.Visible;
-
+            btnBorrar.Visibility = Visibility.Collapsed;
             studentListView.IsEnabled = false;
 
             EditarActivado = true;

@@ -27,6 +27,8 @@
         <TextBlock Text="TABLA ESTUDIANTE" Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="2" FontSize="30" FontWeight="Bold" TextAlignment="Center"/>
 
         <StackPanel Grid.Row="1" Grid.Column="0">
+            
+            
             <ListView x:Name="studentListView" ItemsSource="{Binding ListaEstudiantes}" MaxHeight="400" 
                       SelectionChanged="studentListView_SelectionChanged">
 
@@ -108,6 +110,14 @@
         
         
         <StackPanel x:Name="stackEstudiante" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="10" Visibility="Visible">
+            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
+                <TextBlock Text="Introduce el DNI:" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtDNI" Width="150" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                <Button Content="BUSCAR" Width="100"
+                        Command="{Binding FindStudentCommand}"
+                        CommandParameter="{Binding ElementName=vista}"/>
+            </StackPanel>
+            
             <Button x:Name="btnMostrarNotas" Content="Mostrar Notas" Width="150" Margin="10" Height="25" Click="btnMostrarNotas_Click"/>
             <Grid VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
@@ -156,6 +166,12 @@
                         HorizontalAlignment="Center" Margin="10" Cursor="Hand" 
                         Click="btnCancelar_Click"
                         Command="{Binding CancelarEditarEstudianteCommand}"/>
+                
+                <Button x:Name="btnBorrar" Content="BORRAR" Width="110" 
+                        HorizontalAlignment="Center" Margin="10" Cursor="Hand" 
+                        Command="{Binding DeleteStudentCommand}"
+                        CommandParameter="{Binding ElementName=vista}"/>
+            
             </StackPanel>
 
         </StackPanel>

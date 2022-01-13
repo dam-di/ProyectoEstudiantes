@@ -92,6 +92,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\StudentCommands\CancelarEditarEstudianteCommand.cs" />
+    <Compile Include="Commands\StudentCommands\DeleteStudentCommand.cs" />
+    <Compile Include="Commands\StudentCommands\FindStudentCommand.cs" />
     <Compile Include="Commands\StudentCommands\LoadStudentCommand.cs" />
     <Compile Include="Commands\StudentCommands\LoadStudentsCommand.cs" />
     <Compile Include="Commands\StudentCommands\NewStudentCommand.cs" />
