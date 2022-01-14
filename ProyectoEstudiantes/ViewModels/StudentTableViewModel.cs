@@ -26,6 +26,7 @@ namespace ProyectoEstudiantes.ViewModels
         public ICommand SaveStudentCommand { get; set; }
         public ICommand SaveScoresCommand { get; set; }
         public ICommand DeleteStudentCommand { set; get; }
+        public ICommand FindStudentCommand { set; get; }
         private EstudianteModel currentStudent { get; set; }
         public EstudianteModel CurrentStudent { get { return currentStudent; } 
             set { currentStudent = value; OnPropertyChanged(nameof(CurrentStudent)); } }
@@ -43,6 +44,7 @@ namespace ProyectoEstudiantes.ViewModels
             SaveStudentCommand = new SaveStudentCommand(this);
             SaveScoresCommand = new SaveScoresCommand(this);
             DeleteStudentCommand = new DeleteStudentCommand(this);
+            FindStudentCommand = new FindStudentCommand(this);
             CurrentStudent = new EstudianteModel();
             ListaNotas = new ObservableCollection<string>() { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "NA" };
         }

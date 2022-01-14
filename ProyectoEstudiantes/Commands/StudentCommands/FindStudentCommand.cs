@@ -1,4 +1,5 @@
-﻿using ProyectoEstudiantes.Models;
+﻿using Newtonsoft.Json;
+using ProyectoEstudiantes.Models;
 using ProyectoEstudiantes.Services;
 using ProyectoEstudiantes.ViewModels;
 using ProyectoEstudiantes.Views;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ProyectoEstudiantes.Commands.StudentCommands
@@ -33,6 +35,16 @@ namespace ProyectoEstudiantes.Commands.StudentCommands
                 };
 
                 ResponseModel responseModel = await APIHandler.ConsultAPI(requestModel);
+
+                if (responseModel.resultOk)
+                {
+                    vista.E01MostrarEstudiante();
+                    studentTableViewModel.CurrentStudent = JsonConvert.DeserializeObject<EstudianteModel>((string)responseModel.data);
+                }
+                else
+                {
+                    MessageBox.Show((string)responseModel.data);
+                }
 
             }
             
