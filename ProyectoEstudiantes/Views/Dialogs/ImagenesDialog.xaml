@@ -12,6 +12,9 @@
         <StackPanel Width="550" Height="500">
             
         </StackPanel>
-        <Button Content="CERRAR" Margin="5" Width="110" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="NUEVA" Margin="5" Width="110" Command="{Binding AddImageCommand}" />
+            <Button Content="CERRAR" Margin="5" Width="110" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>
+        </StackPanel>
     </StackPanel>
 </UserControl>
