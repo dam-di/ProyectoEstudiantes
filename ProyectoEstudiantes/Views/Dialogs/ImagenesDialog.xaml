@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="ProyectoEstudiantes.Views.Dialogs.ImagenesDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:ProyectoEstudiantes.Views.Dialogs"
+             mc:Ignorable="d">
+    
+    <StackPanel Width="600" Height="600" >
+        <TextBlock Text="GALERIA DE IMAGENES" HorizontalAlignment="Center" FontSize="25" Margin="10" FontWeight="Black"/>
+        <StackPanel Width="550" Height="500">
+            
+        </StackPanel>
+        <Button Content="CERRAR" Margin="5" Width="110" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>
+    </StackPanel>
+</UserControl>

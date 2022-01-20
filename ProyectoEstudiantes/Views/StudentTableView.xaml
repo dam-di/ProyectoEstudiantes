@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:dialogs="clr-namespace:ProyectoEstudiantes.Views.Dialogs"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:ProyectoEstudiantes.Views"
              x:Name="vista"
@@ -158,7 +160,23 @@
 
             <TextBlock x:Name="txWarning" Text="WARNING" Foreground="Red" TextAlignment="Center" FontWeight="Bold" FontSize="14"/>
 
-            <StackPanel Margin="20" Orientation="Horizontal" HorizontalAlignment="Center">
+
+            <materialDesign:DialogHost x:Name="dialogImagenes">
+
+                <materialDesign:DialogHost.DialogContent>
+                    <dialogs:ImagenesDialog/>
+                </materialDesign:DialogHost.DialogContent>
+                
+                <Button x:Name="btnImagenes" Margin="0,10,0,0" Content="IMAGENES"  
+                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                        Width="110" />
+                
+            </materialDesign:DialogHost>
+            
+            
+            
+            
+            <StackPanel Margin="0,10" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button x:Name="btnEditarEstudiante" Content="EDITAR" Width="110" HorizontalAlignment="Center" Margin="10" Click="btnEditarEstudiante_Click" Cursor="Hand"/>
                 <Button x:Name="btnGuardarEstudiante" Content="GUARDAR" Width="110" 
                         HorizontalAlignment="Center" Margin="10" Cursor="Hand"
