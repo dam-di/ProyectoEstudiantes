@@ -1,4 +1,5 @@
-﻿using ProyectoEstudiantes.Services;
+﻿using ProyectoEstudiantes.Models;
+using ProyectoEstudiantes.Services;
 using ProyectoEstudiantes.ViewModels;
 using ProyectoEstudiantes.Views;
 using System;
@@ -20,30 +21,33 @@ namespace ProyectoEstudiantes.Commands.StudentCommands
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
             StudentTableView vista = (StudentTableView)parameter;
-            MessageBoxResult result = MessageBox.Show("¿Deseas realizar los cambios?", "Guardar Notas", MessageBoxButton.YesNo);
-
+            MessageBoxResult result = MessageBox.Show("¿Deseas realizar los cambios?", "Modificar", MessageBoxButton.YesNo);
             switch (result)
             {
                 case MessageBoxResult.Yes:
-                    bool okguardar = StudentDBHandler.GuardarNotasEstudiante(studentTableViewModel.CurrentStudent);
-                    if (okguardar)
+                    RequestModel requestModel = new RequestModel();
+                    requestModel.route = "/students";
+                    requestModel.method = "PUT";
+                    requestModel.data = studentTableViewModel.CurrentStudent;
+                    ResponseModel responseModel = await APIHandler.ConsultAPI(requestModel);
+
+                    if (responseModel.resultOk)
                     {
-                        MessageBox.Show("Notas guardadas con éxito", "Guardar Notas");
                         vista.E03MostrarNotas();
+                        studentTableViewModel.LoadStudentsCommand.Execute("");
                     }
-                    else
-                    {
-                        MessageBox.Show("Error al guardar", "Guardar Notas");
-                    }
+
+                    MessageBox.Show((string)responseModel.data, "Modificar", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
 
                 case MessageBoxResult.No:
                     break;
 
-            } 
+            }
+
         }
 
         public StudentTableViewModel studentTableViewModel { get; set; }

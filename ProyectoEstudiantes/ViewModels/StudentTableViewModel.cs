@@ -1,4 +1,5 @@
-﻿using ProyectoEstudiantes.Commands.StudentCommands;
+﻿using ProyectoEstudiantes.Commands.ImagesCommand;
+using ProyectoEstudiantes.Commands.StudentCommands;
 using ProyectoEstudiantes.Models;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace ProyectoEstudiantes.ViewModels
         public ICommand SaveScoresCommand { get; set; }
         public ICommand DeleteStudentCommand { set; get; }
         public ICommand FindStudentCommand { set; get; }
+        public ICommand AddImageCommand { set; get; }
         private EstudianteModel currentStudent { get; set; }
         public EstudianteModel CurrentStudent { get { return currentStudent; } 
             set { currentStudent = value; OnPropertyChanged(nameof(CurrentStudent)); } }
@@ -45,6 +47,7 @@ namespace ProyectoEstudiantes.ViewModels
             SaveScoresCommand = new SaveScoresCommand(this);
             DeleteStudentCommand = new DeleteStudentCommand(this);
             FindStudentCommand = new FindStudentCommand(this);
+            AddImageCommand = new AddImageCommand(this);
             CurrentStudent = new EstudianteModel();
             ListaNotas = new ObservableCollection<string>() { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "NA" };
         }
