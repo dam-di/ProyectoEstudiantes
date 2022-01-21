@@ -17,7 +17,7 @@ namespace ProyectoEstudiantes.Services
     {
 
         static string USER = "profe2";
-        static string PASSWORD = "abcd1234z";
+        static string PASSWORD = "abcd1234";
         
         public static string ComputeSHA256Hash(string text)
         {
