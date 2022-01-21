@@ -39,6 +39,7 @@ namespace ProyectoEstudiantes.Commands.ImagesCommand
                 ResponseModel responseModel = await APIHandler.ConsultAPI(requestModel);
                 if (responseModel.resultOk)
                 {
+                    studentTableViewModel.LoadImagesCommand.Execute("");
                     MessageBox.Show((string)responseModel.data);
                 }
             }

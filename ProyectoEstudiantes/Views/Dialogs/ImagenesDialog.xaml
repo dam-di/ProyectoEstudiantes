@@ -9,9 +9,38 @@
     
     <StackPanel Width="600" Height="600" >
         <TextBlock Text="GALERIA DE IMAGENES" HorizontalAlignment="Center" FontSize="25" Margin="10" FontWeight="Black"/>
-        <StackPanel Width="550" Height="500">
-            
+
+        <Grid x:Name="stackProcessImages" VerticalAlignment="Center" Height="500" Width="550">
+            <StackPanel VerticalAlignment="Center" >
+                <TextBlock x:Name="txtProcess" Text="Texto de ejemplo" HorizontalAlignment="Center"
+                           FontSize="22" FontWeight="Black" FontStyle="Italic"/>
+                <ProgressBar Margin="10" Style="{StaticResource MaterialDesignCircularProgressBar}"
+                             Value="50" IsIndeterminate="True" Width="60"/>
+            </StackPanel>
+        </Grid>
+        
+        <StackPanel x:Name="stackImages" Width="550" Height="500">
+            <ListBox ItemsSource="{Binding ImagesListModel.imagenes}" Width="550" Height="500" >
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="3" Columns="3" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:Card>
+                            <Image Height="150" Width="150" Source="{Binding Path=Value}"/>
+                        </materialDesign:Card>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                
+            </ListBox>
         </StackPanel>
+        
+        
+        
+        
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="NUEVA" Margin="5" Width="110" Command="{Binding AddImageCommand}" />
             <Button Content="CERRAR" Margin="5" Width="110" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>

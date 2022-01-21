@@ -24,5 +24,19 @@ namespace ProyectoEstudiantes.Views.Dialogs
         {
             InitializeComponent();
         }
+
+        public void E00MostarImagenes()
+        {
+            stackImages.Visibility = Visibility.Visible;
+            stackProcessImages.Visibility = Visibility.Collapsed;
+        }
+
+        public void E01ProcesandoImagenes(string mensaje)
+        {
+            stackImages.Visibility = Visibility.Collapsed;
+            stackProcessImages.Visibility = Visibility.Visible;
+            txtProcess.Text = mensaje;
+        }
+
     }
 }
