@@ -30,7 +30,7 @@ namespace ProyectoEstudiantes.ViewModels
         public ICommand FindStudentCommand { set; get; }
         public ICommand AddImageCommand { set; get; }
         public ICommand LoadImagesCommand { set; get; }
-
+        public ICommand ZoomImageCommand { set; get; }
         private EstudianteModel currentStudent { get; set; }
         public EstudianteModel CurrentStudent { get { return currentStudent; } 
             set { currentStudent = value; OnPropertyChanged(nameof(CurrentStudent)); } }
@@ -46,6 +46,13 @@ namespace ProyectoEstudiantes.ViewModels
             set { imagesListModel = value; OnPropertyChanged(nameof(ImagesListModel)); }
         }
 
+        private byte[] zoomImagen;
+        public byte[] ZoomImagen
+        {
+            set { zoomImagen = value; OnPropertyChanged(nameof(ZoomImagen)); }
+            get { return zoomImagen; }
+        }
+
         public StudentTableViewModel()
         {
             ListaEstudiantes = new ObservableCollection<EstudianteModel>();
@@ -58,6 +65,7 @@ namespace ProyectoEstudiantes.ViewModels
             FindStudentCommand = new FindStudentCommand(this);
             AddImageCommand = new AddImageCommand(this);
             LoadImagesCommand = new LoadImagesCommand(this);
+            ZoomImageCommand = new ZoomImageCommand(this);
             CurrentStudent = new EstudianteModel();
             ListaNotas = new ObservableCollection<string>() { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "NA" };
         }

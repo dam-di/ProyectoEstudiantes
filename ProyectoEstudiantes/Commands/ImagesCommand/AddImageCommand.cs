@@ -1,6 +1,7 @@
 ﻿using ProyectoEstudiantes.Models;
 using ProyectoEstudiantes.Services;
 using ProyectoEstudiantes.ViewModels;
+using ProyectoEstudiantes.Views.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,27 +23,37 @@ namespace ProyectoEstudiantes.Commands.ImagesCommand
 
         public async void Execute(object parameter)
         {
-            var bitmapImage = ImagesHandler.GetBitmapFromFile();
-            if (bitmapImage != null)
+            if(parameter is ImagenesDialog)
             {
-                ImageModel imageModel = new ImageModel();
-                imageModel._id = studentTableViewModel.CurrentStudent._id;
-                string _idI = bitmapImage.UriSource.Segments.Last().ToString().Replace(".", string.Empty);
-                imageModel.imagenes.Add(_idI, ImagesHandler.EncodeImage(bitmapImage));
-                
 
-                RequestModel requestModel = new RequestModel();
-                requestModel.method = "POST";
-                requestModel.route = "/images";
-                requestModel.data = imageModel;
-
-                ResponseModel responseModel = await APIHandler.ConsultAPI(requestModel);
-                if (responseModel.resultOk)
+                var bitmapImage = ImagesHandler.GetBitmapFromFile();
+                if (bitmapImage != null)
                 {
-                    studentTableViewModel.LoadImagesCommand.Execute("");
-                    MessageBox.Show((string)responseModel.data);
+                    ImagenesDialog dialog = (ImagenesDialog)parameter;
+
+                    ImageModel imageModel = new ImageModel();
+                    imageModel._id = studentTableViewModel.CurrentStudent._id;
+                    string _idI = bitmapImage.UriSource.Segments.Last().ToString().Replace(".", string.Empty);
+                    imageModel.imagenes.Add(_idI, ImagesHandler.EncodeImage(bitmapImage));
+
+
+                    RequestModel requestModel = new RequestModel();
+                    requestModel.method = "POST";
+                    requestModel.route = "/images";
+                    requestModel.data = imageModel;
+
+                    dialog.E01ProcesandoImagenes("Insertando imagen...");
+                    ResponseModel responseModel = await APIHandler.ConsultAPI(requestModel);
+                    
+                    if (responseModel.resultOk)
+                    {
+                        
+                        studentTableViewModel.LoadImagesCommand.Execute(dialog);
+                        MessageBox.Show((string)responseModel.data);
+                    }
                 }
             }
+            
 
         }
 

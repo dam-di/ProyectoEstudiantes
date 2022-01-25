@@ -28,7 +28,7 @@ namespace ProyectoEstudiantes.Commands.ImagesCommand
             if(parameter is ImagenesDialog)
             {
                 ImagenesDialog dialog = (ImagenesDialog)parameter;
-                dialog.E01ProcesandoImagenes("Espera un poco...");
+                dialog.E01ProcesandoImagenes("Cargando imagenes...");
 
                 studentTableViewModel.ImagesListModel = new ImagesListModel();
 
@@ -48,7 +48,7 @@ namespace ProyectoEstudiantes.Commands.ImagesCommand
                 else
                 {
                     //MessageBox.Show((string)responseModel.data);
-                    dialog.E01ProcesandoImagenes("No hay nada que mostrar");
+                    dialog.E02ImagenNoDisponible();
                 }
 
 

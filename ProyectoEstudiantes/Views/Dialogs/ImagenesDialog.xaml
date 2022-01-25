@@ -3,27 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:ProyectoEstudiantes.Views.Dialogs"
+             x:Name="vistaDialog"
              mc:Ignorable="d">
     
     <StackPanel Width="600" Height="600" >
         <TextBlock Text="GALERIA DE IMAGENES" HorizontalAlignment="Center" FontSize="25" Margin="10" FontWeight="Black"/>
-
-        <Grid x:Name="stackProcessImages" VerticalAlignment="Center" Height="500" Width="550">
+        
+        <Grid x:Name="stackProcessImages" VerticalAlignment="Center" Height="500" Width="550" Visibility="Collapsed">
             <StackPanel VerticalAlignment="Center" >
                 <TextBlock x:Name="txtProcess" Text="Texto de ejemplo" HorizontalAlignment="Center"
                            FontSize="22" FontWeight="Black" FontStyle="Italic"/>
-                <ProgressBar Margin="10" Style="{StaticResource MaterialDesignCircularProgressBar}"
+                <ProgressBar x:Name="barraProgreso" Margin="10" Style="{StaticResource MaterialDesignCircularProgressBar}"
                              Value="50" IsIndeterminate="True" Width="60"/>
+
+                <StackPanel x:Name="imgNoDisponible" Background="{StaticResource noDisponible}" Width="200" Height="150"/>
+                
             </StackPanel>
         </Grid>
-        
+
+        <StackPanel x:Name="stackZoom" Width="550" Height="500" VerticalAlignment="Center">
+            <Image x:Name="imgZoom" Width="500" Height="450" Source="{Binding ZoomImagen}" MouseDown="imgZoom_MouseDown"/>
+        </StackPanel>
+
+
         <StackPanel x:Name="stackImages" Width="550" Height="500">
-            <ListBox ItemsSource="{Binding ImagesListModel.imagenes}" Width="550" Height="500" >
+            <ListBox x:Name="listBoxImages" ItemsSource="{Binding ImagesListModel.imagenes}" Width="550" Height="500" >
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding ZoomImageCommand}"
+                                               CommandParameter="{Binding ElementName=vistaDialog}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Rows="3" Columns="3" />
+                        <UniformGrid Columns="3" />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
 
@@ -42,7 +60,8 @@
         
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="NUEVA" Margin="5" Width="110" Command="{Binding AddImageCommand}" />
+            <Button Content="NUEVA" Margin="5" Width="110" Command="{Binding AddImageCommand}"
+                    CommandParameter="{Binding ElementName=vistaDialog}"/>
             <Button Content="CERRAR" Margin="5" Width="110" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>
         </StackPanel>
     </StackPanel>
