@@ -74,5 +74,13 @@ namespace ProyectoEstudiantes.Models
             Notas = new NotasModel();
         }
 
+        private int edad;
+        public int Edad
+        {
+            get { return edad; }
+            set { edad = value; OnPropertyChanged(nameof(Edad)); }
+        }
+
+
     }
 }

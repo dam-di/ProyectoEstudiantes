@@ -103,6 +103,7 @@
     <Compile Include="Models\NotasModel.cs" />
     <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
+    <Compile Include="Resources\ValidationsRules\MyValidationRule.cs" />
     <Compile Include="Services\APIHandler.cs" />
     <Compile Include="Services\ImagesHandler.cs" />
     <Compile Include="Services\StudentDBHandler.cs" />
